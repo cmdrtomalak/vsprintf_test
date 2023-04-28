@@ -15,7 +15,14 @@ static int my_printf(const char *fmt, ...)
 }
 
 void _start(void) {
-	main();
+	asm(
+			"movq %rsp, %rbp\n"
+			"andq $-16, %rsp\n"
+			"call main\n"
+			"movq %rax, %rdi\n"
+			"movq $60, %rax\n"
+			"syscall"
+	   );
 }
 
 void main(void)
