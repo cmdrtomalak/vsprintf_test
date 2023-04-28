@@ -15,6 +15,7 @@ static int my_printf(const char *fmt, ...)
 }
 
 void _start(void) {
+#ifdef __X86_64__
 	asm(
 			"movq %rsp, %rbp\n"
 			"andq $-16, %rsp\n"
@@ -23,6 +24,11 @@ void _start(void) {
 			"movq $60, %rax\n"
 			"syscall"
 	   );
+#endif
+
+#ifdef __APPLE_CC__
+	main();
+#endif
 }
 
 void main(void)
